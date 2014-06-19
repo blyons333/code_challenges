@@ -1,10 +1,12 @@
 class Gigasecond
-	attr_accessor :date
+	GSECS = 10**9
+
 	def initialize(start_date)
-		@date = 0
-		gsecs = 10**9
-		#Convert seconds to days
-		gdays = gsecs/60/60/24
-		@date = start_date + gdays
+		@start_date = start_date
+		
+	end
+
+	def date
+		return (@start_date.to_time + GSECS).to_date
 	end
 end
