@@ -1,31 +1,41 @@
-var anagram = function(word) {
-	this.word = word;	
-};
+String.prototype.sort = function() {
+	return this.split('').sort().join('');
+}
 
-anagram.prototype.matches = function() {
-		var match_set = [];
-		for(var i = 0; i < arguments.length; i++) {
-			if (typeof(arguments[i]) == "string") {
-				match_set.push(arguments[i]);
-			}else {
-				match_set = match_set.concat(arguments[i]);
-			}
-		}
+var Anagram = function(word) {
+	
+	this.word = word.toLowerCase();
+
+	this.matches = function() {
+		var match_set = this.get_match_set(arguments);
+
 		var rtn_matches = [];
-		var sorted_word = sort_string_chars(this.word);
 		for(var i = 0; i < match_set.length; i++) {
-			if (sorted_word == sort_string_chars(match_set[i]) &&
-				this.word.toLowerCase() != match_set[i].toLowerCase()) {
+			if (this.are_anagrams(this.word, match_set[i].toLowerCase())) {
 				rtn_matches.push(match_set[i]);
 			}
 		}
 
 		return rtn_matches;
+	};
+
+	this.are_anagrams = function(word1, word2) {
+		return (word1.sort() == word2.sort() && word1 != word2);
+	} 
+
+	this.get_match_set = function(arguments) {
+		var rtn_set = [];
+		for(var i = 0; i < arguments.length; i++) {
+			if (typeof(arguments[i]) == "string") {
+				rtn_set.push(arguments[i]);
+			}else {
+				rtn_set = rtn_set.concat(arguments[i]);
+			}
+		}
+		return rtn_set;
+	}
+
 };
+module.exports = Anagram;
 
-module.exports = anagram;
-
- var sort_string_chars = function(string) {
-	return string.toLowerCase().split('').sort().join('');
-}
 
