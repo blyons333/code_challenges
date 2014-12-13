@@ -14,31 +14,31 @@ class Squares
 	# Calculates and returns the square of sums
 	# ============================================
 	# (1 + 2 + ... + n_numbers)**2
-	def square_of_sums()
-		sum = 0
-		for n in 1..@n_numbers
-			sum += n
-		end
+	def square_of_sums
+
+		#Sum all numbers between 1 and n
+		sum = (1..@n_numbers).reduce(:+)
+		#Square the sum
 		sum **= 2
-		return sum
 	end
 
 	# Calculates and returns the sum of squares
 	# =============================================
 	# 1**2 + 2**2 + ... + n_numbers**2
-	def sum_of_squares()
-		sum = 0
-		for n in 1..@n_numbers
+	def sum_of_squares
+		rtnSum = 0
+		#Add the sqare of each number to a sum
+		rtnSum = (1..@n_numbers).inject { |sum, n|
 			sum += n**2
-		end
-		return sum
+		}
+		rtnSum
 	end
 
 	# Calculates and returns the difference between
 	# the square of sums and the sum of squares
 	# =============================================
 	# square of sums - sum of squares
-	def difference()
-		return square_of_sums - sum_of_squares
+	def difference
+		square_of_sums - sum_of_squares
 	end
 end
